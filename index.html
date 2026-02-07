@@ -192,10 +192,9 @@
 
             // Random movement before final
             if (clicks < 7) {
-                const maxX = window.innerWidth - btn.offsetWidth;
-                const maxY = window.innerHeight - btn.offsetHeight;
-                btn.style.left = Math.random() * maxX + "px";
-                btn.style.top = Math.random() * maxY + "px";
+                btn.style.transform = "none";
+                btn.style.left = Math.random() * (window.innerWidth - btn.offsetWidth) + "px";
+                btn.style.top = Math.random() * (window.innerHeight - btn.offsetHeight) + "px";
             }
 
             // FINAL CLICK
@@ -204,8 +203,12 @@
                 btn.style.top = "0";
                 btn.style.width = "100vw";
                 btn.style.height = "100vh";
-                btn.style.borderRadius = "0";
-                btn.style.fontSize = "3rem";
+                btn.style.borderRadius = "30px";
+                btn.style.display = "flex";
+                btn.style.alignItems = "center";
+                btn.style.justifyContent = "center";
+                btn.innerText = "YES ❤️";
+
 
                 launchConfetti();
 
