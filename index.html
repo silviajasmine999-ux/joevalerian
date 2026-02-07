@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Valentine’s Day ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #ff4f8b, #ff8fb8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Floating hearts */
+        .hearts span {
+            position: absolute;
+            bottom: -20px;
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            opacity: 0.8;
+        }
+
+        .hearts span:nth-child(1) { left: 10%; animation-duration: 5s; }
+        .hearts span:nth-child(2) { left: 30%; animation-duration: 7s; }
+        .hearts span:nth-child(3) { left: 50%; animation-duration: 6s; }
+        .hearts span:nth-child(4) { left: 70%; animation-duration: 8s; }
+        .hearts span:nth-child(5) { left: 90%; animation-duration: 5.5s; }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0; }
+        }
+
+        .card {
+            width: 92%;
+            max-width: 360px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(14px);
+            border-radius: 26px;
+            padding: 30px 22px;
+            text-align: center;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+            z-index: 2;
+            animation: slideUp 1.2s ease;
+        }
+
+        .heart {
+            width: 60px;
+            height: 60px;
+            background: #ff1e56;
+            margin: 10px auto 18px;
+            transform: rotate(-45deg);
+            animation: pulse 1.1s infinite;
+            position: relative;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 60px;
+            height: 60px;
+            background: #ff1e56;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before { top: -30px; left: 0; }
+        .heart::after { left: 30px; top: 0; }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        #finalMessage {
+            display: none;
+            font-size: 1.3rem;
+            margin-top: 15px;
+            animation: fadeIn 1s ease;
+        }
+
+        /* YES button */
+        #yesBtn {
+            position: absolute;
+            padding: 14px 28px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: #fff;
+            color: #ff1e56;
+            cursor: pointer;
+            z-index: 3;
+            transition: transform 0.3s ease, width 0.4s ease, height 0.4s ease;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            font-size: 18px;
+            animation: fall 3s linear forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.2); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating hearts -->
+    <div class="hearts">
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+        <span>💘</span>
+        <span>❤️</span>
+    </div>
+
+    <div class="card">
+        <div class="heart"></div>
+
+        <h1>Will you be my Valentine? 💘</h1>
+        <h2><strong>~ JOE ~</strong></h2>
+
+        <div id="finalMessage">
+            YAY 💖<br>
+            My Baby<br>
+            Happy Valentine’s Day JOE 😍
+        </div>
+    </div>
+
+    <button id="yesBtn" onclick="growYes()">YES ❤️</button>
+
+    <script>
+        let clicks = 0;
+        const btn = document.getElementById("yesBtn");
+
+        function growYes() {
+            clicks++;
+
+            // Heartbeat vibration (mobile)
+            if (navigator.vibrate) {
+                navigator.vibrate([80, 40, 80]);
+            }
+
+            // Gradual growth
+            btn.style.width = 160 + clicks * 90 + "px";
+            btn.style.height = 55 + clicks * 35 + "px";
+            btn.style.fontSize = 1.1 + clicks * 0.25 + "rem";
+
+            // Random movement before final
+            if (clicks < 7) {
+                const maxX = window.innerWidth - btn.offsetWidth;
+                const maxY = window.innerHeight - btn.offsetHeight;
+                btn.style.left = Math.random() * maxX + "px";
+                btn.style.top = Math.random() * maxY + "px";
+            }
+
+            // FINAL CLICK
+            if (clicks === 7) {
+                btn.style.left = "0";
+                btn.style.top = "0";
+                btn.style.width = "100vw";
+                btn.style.height = "100vh";
+                btn.style.borderRadius = "0";
+                btn.style.fontSize = "3rem";
+
+                launchConfetti();
+
+                setTimeout(() => {
+                    btn.style.display = "none";
+                    document.getElementById("finalMessage").style.display = "block";
+                }, 900);
+            }
+        }
+
+        function launchConfetti() {
+            const emojis = ["❤️","💖","💕","💘","✨"];
+            for (let i = 0; i < 40; i++) {
+                const conf = document.createElement("div");
+                conf.className = "confetti";
+                conf.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                conf.style.left = Math.random() * 100 + "vw";
+                conf.style.animationDuration = 2 + Math.random() * 2 + "s";
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 3000);
+            }
+        }
+
+        // Initial position
+        btn.style.left = "50%";
+        btn.style.top = "70%";
+        btn.style.transform = "translate(-50%, -50%)";
+    </script>
+
+</body>
+</html>
